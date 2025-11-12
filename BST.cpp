@@ -131,11 +131,6 @@ int findMinValueNoRecursive(struct node* root) {
 // ===============================================
 // 1. Find the kth largest element in the BST
 // ===============================================
-// @param root: pointer to BST root
-// @param k: order number (1 = largest, 2 = 2nd largest, etc.)
-// @return pointer to node that holds the kth largest value,
-//         or NULL if k > number of nodes
-
 int counter = 0;
 
 struct node* findKthLargest_HELPER(struct node* root, int k) { //reverse in-order traversal
@@ -159,9 +154,6 @@ struct node* findKthLargest(struct node* root, int k) {
 // 2. Find minimum absolute difference between any
 //     two node values in the BST
 // ===============================================
-// @param root: pointer to BST root
-// @return smallest absolute difference between any two nodes
-
 struct node* prevNode = NULL;
 int minDiff = INT_MAX;
 
@@ -187,17 +179,14 @@ int getMinimumDifference(struct node* root) {
 // ===============================================
 // 3. Delete a node by value
 // ===============================================
-// @param rootRef: pointer to pointer to root
-// @param data: integer value to delete
-// @return pointer to deleted node (if found), otherwise NULL
-
 struct node* findMin(struct node* root) {
 	while(root->left != NULL) root = root->left;
 	return root;
 }
 
-struct node* deleteNode(struct node** rootRef, int data) {
-	if(*rootRef == NULL) return NULL; //base case
+//recursive : return nothing
+void deleteNode(struct node** rootRef, int data) {
+	if(*rootRef == NULL) return; //base case
 	
 	//search for node	
 	if(data < (*rootRef)->data) return deleteNode(&(*rootRef)->left, data);
@@ -231,15 +220,11 @@ struct node* deleteNode(struct node** rootRef, int data) {
 			deleteNode(&(*rootRef)->right, temp->data);
 		}
 	}
-	
-	return *rootRef;
 }
 
 // ===============================================
 // 4. Delete all nodes
 // ===============================================
-// @param rootRef: pointer to pointer to root
-// @return void
 void deleteTree(struct node** rootRef) { //post-order traversal
 	if(*rootRef == NULL) return; //base case
 	
@@ -272,11 +257,8 @@ int main() {
 
     // Delete node
     cout << "\nDeleting node with value 20..." << endl;
-    struct node* deleted = deleteNode(&root, 20);
-    if (deleted != NULL){
-      cout << "Deleted node replaced with: " << deleted->data << endl;
-      cout << "After deletion (In-Order): ";  printTreeInOrder(root);  cout << endl;
-    }
+    deleteNode(&root, 20);
+    cout << "After deletion (In-Order): ";  printTreeInOrder(root);  cout << endl;
 
     // Cleanup all nodes
     cout << "\nDeleting all nodes..." << endl;
