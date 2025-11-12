@@ -3,7 +3,7 @@ CFLAGS = -Wall -std=c++11
 TARGET = BST
 OBJ = BST.o
 
-.PHONY: all clean rebuild
+.PHONY: all run clean rebuild
 
 all: $(TARGET)
 
