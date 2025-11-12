@@ -138,7 +138,7 @@ int findMinValueNoRecursive(struct node* root) {
 
 int counter = 0;
 
-struct node* findKthLargest_HELPER(struct node* root, int k) {
+struct node* findKthLargest_HELPER(struct node* root, int k) { //reverse in-order traversal
 	if(root == NULL) return NULL; //base case: k > BST size : k is out of bounds
 
 	struct node* right = findKthLargest_HELPER(root->right, k); //traverse right
@@ -165,7 +165,7 @@ struct node* findKthLargest(struct node* root, int k) {
 struct node* prevNode = NULL;
 int minDiff = INT_MAX;
 
-int getMinimumDifference_HELPER(struct node* root) {
+int getMinimumDifference_HELPER(struct node* root) { //in-order traversal
 	if(root == NULL) return minDiff; //base case
 	
 	getMinimumDifference_HELPER(root->left); //traverse left
@@ -220,8 +220,8 @@ struct node* deleteNode(struct node** rootRef, int data) {
 		else if((*rootRef)->right == NULL)
 		{
                         struct node* temp = *rootRef;
-                        *rootRef = (*rootRef)->left;
-                        delete temp;
+			*rootRef = (*rootRef)->left;
+			delete temp;
 		}
 		//two children : find inorder successor ; copy and delete successor
 		else 
@@ -240,7 +240,7 @@ struct node* deleteNode(struct node** rootRef, int data) {
 // ===============================================
 // @param rootRef: pointer to pointer to root
 // @return void
-void deleteTree(struct node** rootRef) {
+void deleteTree(struct node** rootRef) { //post-order traversal
 	if(*rootRef == NULL) return; //base case
 	
 	deleteTree(&(*rootRef)->left); //delete left subtree
@@ -274,7 +274,7 @@ int main() {
     cout << "\nDeleting node with value 20..." << endl;
     struct node* deleted = deleteNode(&root, 20);
     if (deleted != NULL){
-      cout << "Deleted node had value: " << deleted->data << endl;
+      cout << "Deleted node replaced with: " << deleted->data << endl;
       cout << "After deletion (In-Order): ";  printTreeInOrder(root);  cout << endl;
     }
 

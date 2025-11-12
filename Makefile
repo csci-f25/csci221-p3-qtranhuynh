@@ -3,7 +3,7 @@ CFLAGS = -Wall -std=c++11
 TARGET = BST
 OBJ = BST.o
 
-.PHONY: all run clean rebuild
+.PHONY: all run leak clean rebuild
 
 all: $(TARGET)
 
@@ -15,6 +15,9 @@ $(OBJ): BST.cpp
 
 run: $(TARGET)
 	./$(TARGET)
+
+leak: $(TARGET)
+	valgrind --leak-check=full --show-reachable=yes ./$(TARGET)
 
 clean:
 	rm -f $(OBJ) $(TARGET)
